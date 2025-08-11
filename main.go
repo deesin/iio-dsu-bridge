@@ -502,7 +502,7 @@ func main() {
 	}
 
 	// DSU server: escucha en 0.0.0.0:26760 (lo espera Yuzu/Cemuhook)
-	srv, err := NewDSUServer(":26760")
+	srv, err := NewDSUServer("0.0.0.0:26760")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "DSU listen: %v\n", err)
 		os.Exit(1)
