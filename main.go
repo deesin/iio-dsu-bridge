@@ -7,7 +7,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"net"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -502,20 +501,14 @@ func main() {
 		}
 	}
 
-	conn, err := net.Dial("udp", *addr)
+	// DSU server: escucha en 0.0.0.0:26760 (lo espera Yuzu/Cemuhook)
+	srv, err := NewDSUServer(":26760")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "UDP dial %s: %v\n", *addr, err)
+		fmt.Fprintf(os.Stderr, "DSU listen: %v\n", err)
 		os.Exit(1)
 	}
-	defer conn.Close()
-
-	// Enviar ControllerInfo al arrancar
-	info := buildControllerInfo()
-	if len(info) == 0 {
-		fmt.Println("WARN: buildControllerInfo() está vacío (placeholder). Yuzu no pasará el test DSU.")
-	} else {
-		conn.Write(info)
-	}
+	defer srv.Close()
+	fmt.Println("DSU server listening on :26760")
 
 	// Bucle a tasa fija
 	ticker := time.NewTicker(time.Second / time.Duration(*rate))
@@ -542,12 +535,7 @@ func main() {
 			}
 		}
 
-		pkt := buildControllerData(s)
-		if len(pkt) == 0 {
-			// placeholder: aún sin DSU válido, solo loggeamos
-			continue
-		}
-		_, _ = conn.Write(pkt)
+		srv.Broadcast(s)
 	}
 }
 
