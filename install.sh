@@ -8,7 +8,7 @@ set -e
 #
 # Edit BIN_URL to match your Release asset URL.
 # Example for "latest":
-#   https://github.com/Sebalvarez97/iio-dsu-bridge/releases/latest/download/iio-dsu-bridge-linux-amd64
+#   https://github.com/Sebalvarez97/iio-dsu-bridge/releases/latest/download/iio-dsu-bridge
 
 SERVICE_NAME="iio-dsu-bridge"
 BIN_DIR="$HOME/.local/bin"
