@@ -1,5 +1,5 @@
 # iio-dsu-bridge
-IIo Bridge to generate data for a DSU server to use CemuHook in Yuzu/Ryujinx/Cemu for RogAlly in SteamOS
+IIo Bridge to generate data for a DSU server to use CemuHook in Ryujinx/Cemu for RogAllyX in SteamOS
 
 ### Install (Desktop Mode, double-click)
 1. Download `install-iio-dsu-bridge.desktop` from the latest Release.
